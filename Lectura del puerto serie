@@ -1,0 +1,19 @@
+"""Codigo Python para obtener los datos del puerto serie"""
+import serial
+import time
+import datetime
+
+hora_actual = datetime.datetime.now()
+hora_formateada = hora_actual.strftime('%H:%M')
+serialArduino = serial.Serial("COM9",9600)
+time.sleep(1)
+
+while True:
+    #a en el siguiente comando es para añadir append
+    #w en el siguiente comando es para escribir y borra lo anterior
+    archivo = open("prueggba.odf","a",encoding="locale")
+    cad = serialArduino.readline().decode('ascii')
+    
+    print(hora_formateada + ",  "+ cad)
+    archivo.write(hora_formateada + ",  "+ cad)
+    archivo.close()
